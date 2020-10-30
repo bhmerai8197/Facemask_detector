@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %} Home Page {% endblock %}
+{% block menuhome %}
+<li class="nav-item active">
+<a class="nav-link" href="/" style="font-size: x-large;"> Home <span class="sr-only">(current)</span></a>
+</li>
+{% endblock %}
+
+{% block menuvisit%}
+<li class="nav-item"><a class="nav-link" href="visitor" style="font-size: x-large;">Visitors </a>
+</li>
+{% endblock %}
+{% block content %}
+<div class="mt-2 container">
+
+	<div class="row justify-content-around"">
+
+			<img id="bg" src="{{ url_for('video_feed') }}" style = " width:700px; height: 500px; border: 1px solid #ddd; border-radius: 4px; padding: 5px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" >
+	</div>
+
+</div>
+
+{% endblock %}
+{% block content1 %}
+<div class="mt-3 container">
+
+	<div class="row">
+		{% if session["override"] == 0 : %}
+			<div class="col-sm-4"></div>
+			<div class="col-sm-2">
+				<form action="#" method="post">
+					<input type= "hidden" value="Multiple" name="do">
+					<input type="submit" value="Manual Override" class="btn btn-outline-dark">
+				</form>
+			</div>
+			<div class="col-sm-2">
+				<form action="#" method="post">
+					<input type= "hidden" value="Single" name="do">
+					<input type="submit" value="Single Manual Override" class="btn btn-outline-dark">
+				</form>
+			</div>
+			<div class="col-sm-5"></div>
+		{% elif session["override"] == 2 : %}
+			<div class="col-sm-5"></div>
+			<div class="col align-self-center">
+				<form action="#" method="post">
+					<input type= "hidden" value="Cancel" name="do">
+					<input type="submit" value="Cancel Manual Override" class="btn btn-outline-danger">
+				</form>
+			</div>
+			<div class="col-sm-5"></div>
+
+		{% elif session["override"] == 1 :  %}
+			<div class="col-sm-5"></div>
+			<div class="col align-self-center">
+				<form action="#" method="post">
+					<input type= "hidden" value="Cancel" name="do">
+					<input type="submit" value="Cancel Single Manual Override" class="btn btn-outline-danger">
+				</form>
+			</div>
+			<div class="col-sm-5"></div>
+
+		{% endif %}
+		</div>
+
+	<div class="mt-2 row">
+
+
+		{% if session["override"] == 2 : %}
+
+			<div class="col align-self-center" style="text-align:center">
+				<h3>Manual Override</h3>
+				<h6>Current Override Operation</h6>
+			</div>
+
+		{% elif session["override"] == 1 : %}
+			<div class="col align-self-center" style="text-align:center">
+
+				<h3>Single Override</h3>
+				<h6>Current Override Operation</h6>
+			</div>
+		{% else :%}
+			<div class="col align-self-center" style="text-align:center">
+
+				<h2>NONE</h2>
+				<h6>Current Override Operation</h6>
+			</div>
+		{% endif%}
+	</div>
+
+</div>
+{% endblock %}

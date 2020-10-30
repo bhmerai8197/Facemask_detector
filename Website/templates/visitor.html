@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %} Visitor Page {% endblock %}
+{% block menuhome %}
+<li class="nav-item">
+<a class="nav-link" href="/" style="font-size: x-large;"> Home </a>
+</li>
+{% endblock %}
+{% block menuvisit%}
+<li class="nav-item active">
+<a class="nav-link" href="visitor" style="font-size: x-large;">Visitors <span class="sr-only">(current)</span></a>
+</li>
+{% endblock %}
+{% block content %}
+<div class="mt-2 container-fluid">
+	<div class="row">
+
+
+			<div class="col align-self-center" style="text-align:center">
+				<h1>{{session["visitor"]}}</h1>
+				<h6>Total Visitor Added</h6>
+			</div>
+
+	</div>
+</div>
+
+
+
+{% endblock %}
+
+{% block content1 %}
+<div class="mt-10 container">
+	<table style="width:100%" class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th>Operation</th>
+				<th>Value</th>
+				<th>Total Count</th>
+				<th>Date & Time</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for item in values %}
+			<tr>
+				<td>{{item.operation}}</td>
+				<td>{{item.value}}</td>
+				<td>{{item.total_count}}</td>
+				<td>{{item.timestamp}}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}
