@@ -1,6 +1,15 @@
 # Facemask_detector
 The aim of the project is to build a system with a user interface including multi-class CNN that can detect the type of mask worn by the visitor(s) using a dedicated video camera, and control the door access over the internet to provide access to the visitor(s) if mask conditions are satisfied.
 
+Project was developed in following steps:
+
+- Environment Setup
+- Creating Artificial Images
+- Preparing Training Folders
+- Training Mask – No Mask Classifier
+- Training Mask Type Classifier
+- Setting up and Running Website Interface
+
 ## 1. Setting up Correct Environment:
 
 The project has been developed on the current versions of deep learning libraries (especially with Tensorflow). Errors might occur if a different tensorflow version is used. In addition to most popular and common python packages, the following packages along with their required version are as follows:
