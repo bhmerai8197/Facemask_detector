@@ -10,8 +10,6 @@ type_classifier = load_model("mask_type_model_v1")
 
 face_clsfr=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-#global prediction_history = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
-
 labels_dict={0:'without_mask',1:'fabric',2:'n95',3:'surgical'}
 
 color_dict={0:(0,0,255),1:(0,0,0),2:(255,255,255),3:(255,0,0)}
