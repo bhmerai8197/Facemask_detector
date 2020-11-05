@@ -103,7 +103,6 @@ class Camera(object):
         
         _, index, count, = np.unique(prediction_history[-9:], return_index= True, return_counts = True)
         mask_flag = prediction_history[index[np.argmax(count)]]
-        print(mask_flag)
         ret, jpeg = cv2.imencode('.jpg', im)  # encode OpenCV raw frame to jpg and displaying it      
         ret, jpeg = cv2.imencode('.jpg', im)
         return jpeg.tobytes(),mask_flag,prediction_history
