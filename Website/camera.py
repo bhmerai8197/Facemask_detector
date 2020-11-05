@@ -10,17 +10,19 @@ type_classifier = load_model("mask_type_model_v1")
 
 face_clsfr=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
+<<<<<<< HEAD:Website/camera.py
+=======
+
 labels_dict={0:'without_mask',1:'fabric',2:'n95',3:'surgical'}
+>>>>>>> 31411c4afff194cc40c423192742092cba8df5ed:Website/webcam.py
 
+labels_dict={0:'without_mask',1:'fabric',2:'n95',3:'surgical'}
 color_dict={0:(0,0,255),1:(0,0,0),2:(255,255,255),3:(255,0,0)}
-
 classifier_dict={-1:'no_person',0:'without_mask',1:'fabric',2:'n95',3:'surgical'}
 
-
-
 ds_factor=1
-
 size = 0.6
+
 class Camera(object):
     def __init__(self):
        #capturing video
@@ -45,8 +47,8 @@ class Camera(object):
                     found_flag = 1
         return closest_face, found_flag, face_size
     
-    def get_frame(self):
-        prediction_history = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+    def get_frame(self,prediction_history):
+       
         # Number of frames to capture
         num_frames = 1;
         if(len(prediction_history)>20):
@@ -82,27 +84,31 @@ class Camera(object):
             if (np.argmax(result,axis=1)[0] == 0):
                 classifier_output = 0
                 prediction_history.append(classifier_output)
-                label=np.argmax(result,axis=1)[0]
-                classifier_output = label + 1
+                label = 0
                 prediction_history.append(classifier_output)
                 cv2.rectangle(im,(x,y),(x+w,y+h),color_dict[label],2)
                 cv2.rectangle(im,(x,y-40),(x+w,y),color_dict[label],-1)
                 cv2.putText(im, labels_dict[label], (x, y-10),cv2.FONT_HERSHEY_SIMPLEX,0.8,(255,255,255),2)
             
             elif (np.argmax(result,axis=1)[0] == 1):
-            
+               
+                
                 type_result = type_classifier.predict(reshaped)
                 label=np.argmax(type_result,axis=1)[0]
+                classifier_output = label + 1
+                prediction_history.append(classifier_output)
                 cv2.rectangle(im,(x,y),(x+w,y+h),color_dict[label + 1],2)
                 cv2.rectangle(im,(x,y-40),(x+w,y),color_dict[label + 1],-1)
                 cv2.putText(im, labels_dict[label +1], (x, y-10),cv2.FONT_HERSHEY_SIMPLEX,0.8,(255,255,255),2)
-              
+        
+        _, index, count, = np.unique(prediction_history[-9:], return_index= True, return_counts = True)
+        mask_flag = prediction_history[index[np.argmax(count)]]
+        print(mask_flag)
+        ret, jpeg = cv2.imencode('.jpg', im)  # encode OpenCV raw frame to jpg and displaying it      
         ret, jpeg = cv2.imencode('.jpg', im)
-        return jpeg.tobytes()
+        return jpeg.tobytes(),mask_flag,prediction_history
     
-   
-    
-
-
-
-
+<<<<<<< HEAD:Website/camera.py
+ 
+=======
+>>>>>>> 31411c4afff194cc40c423192742092cba8df5ed:Website/webcam.py
